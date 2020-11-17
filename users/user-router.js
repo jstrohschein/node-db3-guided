@@ -33,6 +33,20 @@ router.get("/:id", (req, res) => {
     });
 });
 
+
+router.get('/:id/posts', async (req, res) => {
+
+  const {id} = req.params
+
+  try {
+    const posts = await db('posts').whece({ user_id:id })
+    res.json(posts)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'error', error:error })
+  }
+})
+
 router.post("/", (req, res) => {
   const userData = req.body;
 
